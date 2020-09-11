@@ -1,0 +1,58 @@
+# 输入配置
+input:
+
+  # 数据库配置
+  mysql:
+    database: data
+    username: root
+    password: ''
+    host: '127.0.0.1'
+    port: 3306
+
+  # 主键列名
+  primary_key: id
+
+  # 主键类型
+  primary_type: int
+
+  # 同步的表名，必填
+  # table: ''
+
+  # 需要同步字段
+  fields: '*'
+
+  # 分页大小
+  size: 10
+
+  # 生产者，会按照路径导入
+  producer: 'producer.mysql_producer@producer'
+
+  # 启用同步点
+  sync_point: true
+
+  # 同步点文件
+  sync_file: ~
+
+
+# 输出配置
+output:
+
+  # ES配置
+  elasticsearch:
+    hosts:
+      - 'http://127.0.0.1:9200'
+
+  # 索引名，必填
+  # index: ''
+
+  # 文档type
+  document_type: 'doc'
+
+  # 文档id
+  document_id: 'id'
+
+  # 是否在控制台输出json
+  stdout: false
+
+  # 数据消费者
+  consumer: 'consumer.es_consumer@consumer'

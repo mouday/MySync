@@ -1,0 +1,15 @@
+input:
+  table: blog
+  fields: ["id", "author", "content", "create_time"]
+
+  mysql:
+    database: data
+    username: root
+    password: '123456'
+    host: '127.0.0.1'
+    port: 3306
+  size: 10
+
+output:
+  index: blog-v1
+  stdout": false
