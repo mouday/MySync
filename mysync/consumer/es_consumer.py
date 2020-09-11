@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from elasticsearch import Elasticsearch
-from util.es_util import ESUtil
-from util.logger import logger
+from mysync.util.es_util import ESUtil
+from mysync.util.logger import logger
 
 SINGLE_ES = None
 
 
-def get_es(es_config):
+def get_elasticsearch(es_config):
     global SINGLE_ES
 
     if not SINGLE_ES:
@@ -23,7 +23,7 @@ def consumer(config, rows):
     document_type = output_config['document_type']
     document_id = output_config['document_id']
 
-    es = get_es(es_config)
+    es = get_elasticsearch(es_config)
 
     body = ESUtil.encode_doc(index_name, document_type, document_id, rows)
     es.bulk(body)

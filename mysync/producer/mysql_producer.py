@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 from myquery import DataBase
-from util.collection_util import Collection
-
 from myquery.util.sql_builder_util import SQLBuilderUtil
-from util.logger import logger
-from util.sync_util import SyncUtil
+
+from mysync.util.collection_util import Collection
+from mysync.util.logger import logger
+from mysync.util.sync_util import SyncUtil
+import logging
+
+query_logger = logging.getLogger("myquery")
+query_logger.setLevel(logging.INFO)
 
 
 def producer(config):
@@ -18,6 +22,7 @@ def producer(config):
 
     table = input_config['table']
     fields = input_config['fields']
+
     if isinstance(fields, list):
         fields = SQLBuilderUtil.get_key_str(fields)
 

@@ -2,9 +2,9 @@
 import os
 
 import yaml
+import shutil
 
 yaml.warnings({'YAMLLoadWarning': False})
-
 
 """
 配置逐级覆盖
@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_CONFIG = "default_config.yml"
 
 # 配置文件目录
-CONFIG_DIR = "config"
+CONFIG_DIR = ""
 
 # 用户自动以基本的文件
 # BASE_CONFIG = "config.json"
@@ -60,3 +60,8 @@ def parse_config(args):
     config['output'].update(custom_config['output'])
 
     return config
+
+
+def init_config():
+    source = os.path.join(BASE_DIR, DEFAULT_CONFIG)
+    shutil.copy(source, DEFAULT_CONFIG)

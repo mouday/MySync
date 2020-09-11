@@ -1,3 +1,20 @@
+# MySync
+
+同步MySQL数据到ElasticSearch
+
+支持全量同步
+
+必须有自增id
+
+安装
+```bash
+$ pip install mysync
+
+$ mysync
+```
+
+默认的配置文件default_config.yml
+```yml
 # 输入配置
 input:
 
@@ -59,3 +76,5 @@ output:
 
   # 数据消费者
   consumer: 'mysync.consumer.es_consumer@consumer'
+
+```
