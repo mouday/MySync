@@ -12,7 +12,7 @@ input:
     username: root
     password: ''
 
-  # 主键列名
+  # 主键列名, 主键列需要可比较大小
   primary_key: id
 
   # 主键类型

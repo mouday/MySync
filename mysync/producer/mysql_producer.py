@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
+import logging
+
 from myquery import DataBase
 from myquery.util.sql_builder_util import SQLBuilderUtil
 
-from mysync.util.collection_util import Collection
 from mysync.util.logger import logger
 from mysync.util.sync_util import SyncUtil
-import logging
 
 query_logger = logging.getLogger("myquery")
 query_logger.setLevel(logging.INFO)
@@ -53,7 +53,9 @@ def producer(config):
             db.close()
             break
 
-        last_id = Collection(rows).max("id")
+        max_row = max(rows, key=lambda x: x[primary_key])
+        last_id = max_row[primary_key]
+
         logger.debug(f"last_id {last_id}")
 
         yield rows
