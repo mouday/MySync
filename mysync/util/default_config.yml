@@ -37,6 +37,10 @@ input:
   sync_file: ~
 
 
+# 数据处理管道
+pipeline:
+  handlers: ~
+
 # 输出配置
 output:
 

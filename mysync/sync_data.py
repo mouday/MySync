@@ -31,7 +31,7 @@ def parse_args():
 
     # 定义参数
     parser.add_argument("-c", "--config", help="配置文件路径")
-    parser.add_argument("-t", "--table", help="表名")
+    parser.add_argument("-t", "--test_config", help="查看配置")
 
     # 解析
     return parser.parse_args()
@@ -39,7 +39,9 @@ def parse_args():
 
 def start_sync(args):
     config = parse_config(args)
-    pprint(config)
+
+    if not config:
+        return
 
     # 输入参数
     input_config = config['input']
@@ -54,6 +56,13 @@ def start_sync(args):
     consumer = output_config['consumer']
     consumer_method = get_method(consumer)
 
+    # 数据处理器
+    handlers = config['pipeline']['handlers']
+    if handlers:
+        handler_methods = [get_method(handler) for handler in handlers]
+    else:
+        handler_methods = None
+
     # 开始同步
     logger.debug(f"sync start ~ table: {table} -> index: {index_name}")
     start_time = time.time()
@@ -61,6 +70,12 @@ def start_sync(args):
     # 生产-消费
     total = 0
     for rows in producer_method(config):
+
+        # 如果配置了处理器就对数据进行处理
+        if handler_methods:
+            for handler_method in handler_methods:
+                handler_method(config, rows)
+
         consumer_method(config, rows)
 
         if stdout:
@@ -92,7 +107,7 @@ def main():
         elif action == '-h':
             print("$ mysync init : generator a default config file")
             print("$ mysync version : show mysync version")
-            print("$ mysync -t <table_name> : run a sync action from table config")
+            print("$ mysync -t <test_config_path> : show test table config")
             print("$ mysync -c <config_path> : run a sync action from config path")
 
     else:

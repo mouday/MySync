@@ -26,5 +26,7 @@ def consumer(config, rows):
     es = get_elasticsearch(es_config)
 
     body = ESUtil.encode_doc(index_name, document_type, document_id, rows)
-    es.bulk(body)
-    logger.debug('elasticsearch success')
+    ret = es.bulk(body)
+
+    if ret['errors']:
+        raise Exception(ret)

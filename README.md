@@ -11,6 +11,12 @@
 $ pip install mysync
 
 $ mysync
+
+# run config test 
+$ mysync -t config.yml
+
+# run sync
+$ mysync -c config.yml
 ```
 
 默认的配置文件default_config.yml
@@ -53,6 +59,9 @@ input:
   # 同步点文件
   sync_file: ~
 
+# 数据处理管道
+pipeline:
+  handlers: ~
 
 # 输出配置
 output:
@@ -78,3 +87,34 @@ output:
   consumer: 'mysync.consumer.es_consumer@consumer'
 
 ```
+
+默认的处理器
+```python
+# 生产者，会按照路径导入
+producer: 'mysync.producer.mysql_producer@producer'
+
+# 数据消费者
+consumer: 'mysync.consumer.es_consumer@consumer'
+
+# 可选的数据处理器
+pipeline: mysync.pipeline.field_mapping_pipeline@pipeline
+
+```
+
+接口说明
+```
+生产者
+def producer(config):
+
+处理器
+def pipeline(config, rows)
+
+消费者
+def consumer(config, rows):
+```
+
+## TODO
+
+~~1. 配置文件继承 `extends`~~
+~~2. 配置文件运行前检测 `-t`~~
+
