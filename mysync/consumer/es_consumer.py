@@ -22,10 +22,11 @@ def consumer(config, rows):
     index_name = output_config['index']
     document_type = output_config['document_type']
     document_id = output_config['document_id']
+    action = output_config['action']
 
     es = get_elasticsearch(es_config)
 
-    body = ESUtil.encode_doc(index_name, document_type, document_id, rows)
+    body = ESUtil.encode_doc(index_name, document_type, document_id, rows, action=action)
     ret = es.bulk(body)
 
     if ret['errors']:

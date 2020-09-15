@@ -69,6 +69,7 @@ def parse_config(args):
     for temp_config in config_list:
         default_config['input'].update(temp_config['input'])
         default_config['output'].update(temp_config['output'])
+        default_config['pipeline'].update(temp_config['pipeline'])
 
     pprint(default_config)
 

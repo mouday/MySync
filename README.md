@@ -74,6 +74,9 @@ output:
   # 索引名，必填
   # index: ''
 
+  # 操作：index, update
+  action: 'index'
+
   # 文档type
   document_type: 'doc'
 
@@ -89,7 +92,7 @@ output:
 ```
 
 默认的处理器
-```python
+```
 # 生产者，会按照路径导入
 producer: 'mysync.producer.mysql_producer@producer'
 
@@ -97,7 +100,8 @@ producer: 'mysync.producer.mysql_producer@producer'
 consumer: 'mysync.consumer.es_consumer@consumer'
 
 # 可选的数据处理器
-pipeline: mysync.pipeline.field_mapping_pipeline@pipeline
+handlers: 
+    - mysync.pipeline.field_mapping_pipeline@pipeline
 
 ```
 

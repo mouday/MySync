@@ -9,8 +9,8 @@ def pipeline(config, rows):
         return
 
     for row in rows:
-        for key, new_key in field_mapping.items():
-            value = row.pop(key)
+        for old_key, new_key in field_mapping.items():
+            value = row.pop(old_key)
             row[new_key] = value
 
 
@@ -18,7 +18,7 @@ def main():
     config = {
         "pipeline": {
             "field_mapping": {
-                "key": "new_key"
+                "old_key": "new_key"
             }
         }
     }

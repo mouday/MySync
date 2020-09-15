@@ -52,6 +52,9 @@ output:
   # 索引名，必填
   # index: ''
 
+  # 操作：index, update
+  action: 'index'
+
   # 文档type
   document_type: 'doc'
 
